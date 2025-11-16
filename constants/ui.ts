@@ -3,5 +3,9 @@ export const COLORS = {
     SECONDARY_BACKGROUND: "#14150E",
     PRIMARY_TEXT: '#ffffff',
     PRIMARY_ACTIVE_BUTTON: "#005bf0",
-    PRIMERY_RED: "#c83135"
+    PRIMARY_RED: "#c83135",
+    SUCCESS: "#4CAF50",
+    PRIMARY_BORDER: "#808080",
+    PLACEHOLDER: "#A9A9A9",
+    
 }; 

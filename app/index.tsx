@@ -4,12 +4,13 @@ import { useState } from "react";
 import { View, StyleSheet, StatusBar } from "react-native";
 import { Todo } from "@/types/todo";
 import TodoList from "@/layout/TodoList";
+import TodoCreator from "@/layout/TodoCreator";
 
 const defaultTodos: Todo[] = [
     {
         id: 1,
         title: "Learn React Native",
-        isCompleted: false,
+        isCompleted: true,
     },
     {
         id: 2,
@@ -19,12 +20,20 @@ const defaultTodos: Todo[] = [
     {
         id: 3,
         title: "Test the App",
-        isCompleted: true,
+        isCompleted: false,
     },
 ];
 
 export default function Index(){
     const [todo, setTodo] = useState<Todo[]>(defaultTodos)
+
+    const addTodo = (title: Todo["title"]) => {
+        setTodo([...todo, {
+            id: todo.length + 1,
+            title,
+            isCompleted: false,
+        }])
+    }
 
     const completedTodos = todo.filter((todo) => todo.isCompleted)
 
@@ -34,6 +43,7 @@ export default function Index(){
         >
             <StatusBar barStyle={"default"} />
             <Header totalTodos={todo.length} completedTodos={completedTodos.length} />
+            <TodoCreator onAddTodo={addTodo} />
             <TodoList todos={todo} />
         </View>
     )
