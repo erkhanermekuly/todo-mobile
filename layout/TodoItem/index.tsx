@@ -3,24 +3,61 @@ import { COLORS } from "@/constants/ui";
 import StyledText from "@/components/StyledText";
 import StyledButton from "@/components/StyledButton";
 import StyledCheckbox from "@/components/StyledCheckbox";
+import { Todo } from "@/types/todo";
+import { useState } from "react";
+import EditTodoModal from "../Modals/EditTodoModal.tsx";
 
-type TodoItemProps = {
-    title: string;
-    isCompleted: boolean;
+type TodoItemProps = Todo & {
+    onCheckTodo: (id: Todo["id"]) => void;
+    onDeleteTodo: (id: Todo["id"]) => void;
+    onUpdateTodoTitle: (id: Todo["id"], title: Todo["title"]) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ title, isCompleted }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ 
+    id, 
+    title, 
+    isCompleted, 
+    onCheckTodo, 
+    onDeleteTodo, 
+    onUpdateTodoTitle 
+}) => {
+
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+    const onPressCheck = () => {
+        onCheckTodo(id);
+    }
+
+    const onPressDelete = () => {
+        onDeleteTodo(id);
+    }
+    
     return (
       <View style={[styles.container]}>
         <View style={styles.checkTitleContainer}>
-        <StyledCheckbox checked={isCompleted} onCheck={() => {}} />
+        <StyledCheckbox checked={isCompleted} onCheck={onPressCheck} />
         <StyledText style={[
             { textDecorationLine: isCompleted ? 'line-through' : 'none' }
         ]}>{title}</StyledText>
         </View>
         <View style={styles.buttonsContainer}>
-            <StyledButton icon="pencil" size="small" />
-            <StyledButton icon="trash" size="small" variant="delete"/>
+            <StyledButton 
+                icon="pencil" 
+                size="small" 
+                onPress={() => setIsEditModalOpen(true)}
+            />
+            <EditTodoModal 
+                title={title} 
+                isOpen={isEditModalOpen} 
+                onClose={() => setIsEditModalOpen(false)} 
+                onUpdate={(title) => onUpdateTodoTitle(id, title)}
+            />
+            <StyledButton 
+                icon="trash" 
+                size="small" 
+                variant="delete"
+                onPress={onPressDelete}
+            />
         </View>
       </View>
     )

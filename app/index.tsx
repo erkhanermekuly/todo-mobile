@@ -27,12 +27,20 @@ const defaultTodos: Todo[] = [
 export default function Index(){
     const [todo, setTodo] = useState<Todo[]>(defaultTodos)
 
-    const addTodo = (title: Todo["title"]) => {
-        setTodo([...todo, {
-            id: todo.length + 1,
-            title,
-            isCompleted: false,
-        }])
+    const onAddTodo = (title: Todo["title"]) => {
+        setTodo([...todo, { id: todo.length + 1, title, isCompleted: false,}])
+    }
+
+    const onDeleteTodo = (id: Todo["id"]) => {
+        setTodo(todo.filter((todo) => todo.id !== id));
+    }
+
+    const onCheckTodo = (id: Todo["id"]) => {
+        setTodo(todo.map((todo) => (todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo)))
+    } 
+
+    const onUpdateTodoTitle = (id: Todo["id"], title: Todo["title"]) => {
+        setTodo(todo.map((todo) => (todo.id === id ? { ...todo, title } : todo)))
     }
 
     const completedTodos = todo.filter((todo) => todo.isCompleted)
@@ -43,8 +51,8 @@ export default function Index(){
         >
             <StatusBar barStyle={"default"} />
             <Header totalTodos={todo.length} completedTodos={completedTodos.length} />
-            <TodoCreator onAddTodo={addTodo} />
-            <TodoList todos={todo} />
+            <TodoCreator onAddTodo={onAddTodo} />
+            <TodoList todos={todo} onCheckTodo={onCheckTodo} onDeleteTodo={onDeleteTodo} onUpdateTodoTitle={onUpdateTodoTitle} />
         </View>
     )
 } 

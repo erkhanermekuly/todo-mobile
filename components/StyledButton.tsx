@@ -23,6 +23,10 @@ const StyledButton: React.FC<StyledButtonProps> = ({
     disabled,
     ...props
 }) => {
+    const textVariant = (() => {
+        if (size === "large") return "heading";
+        return "small";
+    })
     return (
         <TouchableOpacity style={[styles.base, 
         disabled ? styles.disabled : null,
@@ -33,7 +37,7 @@ const StyledButton: React.FC<StyledButtonProps> = ({
         {...props} 
         disabled={disabled}
         >
-            {label && <StyledText>{label}</StyledText>}
+            {label && <StyledText variant={textVariant()}>{label}</StyledText>}
             {icon && <Ionicons name={icon} size={14} color={COLORS.PRIMARY_TEXT}/>}
         </TouchableOpacity>
     )
