@@ -19,7 +19,7 @@ const defaultTodos: Todo[] = [
     {
         id: 3,
         title: "Test the App",
-        isCompleted: false,
+        isCompleted: true,
     },
 ];
 

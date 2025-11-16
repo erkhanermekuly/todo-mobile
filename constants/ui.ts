@@ -1,5 +1,7 @@
 export const COLORS = {
-    PRIMARY_BACKGROUND: "#1f1f21",
+    PRIMARY_BACKGROUND: "#131519",
     SECONDARY_BACKGROUND: "#14150E",
-    PRIMARY_TEXT: '#ffffff'
+    PRIMARY_TEXT: '#ffffff',
+    PRIMARY_ACTIVE_BUTTON: "#005bf0",
+    PRIMERY_RED: "#c83135"
 }; 
