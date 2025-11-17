@@ -1,5 +1,6 @@
 import StyledText from "@/components/StyledText";
 import { COLORS } from "@/constants/ui";
+import { getFullFormateedDate } from "@/helpers/date";
 import { View, StyleSheet, } from "react-native";
 
 type HeaderProps = {
@@ -8,11 +9,12 @@ type HeaderProps = {
 }
 
 const Header: React.FC<HeaderProps> = ({ totalTodos, completedTodos }) => {
+  const formattedDateNow = getFullFormateedDate(new Date());
   return (
     <View style={styles.container}>
       <View style={styles.headerMainContent}>
         <StyledText variant="title">Todo App</StyledText>
-        <StyledText variant="subTitle">November, 16, 2025 </StyledText>
+        <StyledText variant="subTitle">{formattedDateNow} </StyledText>
       </View>
         <StyledText>Completed: {completedTodos} / {totalTodos} </StyledText>
     </View>
